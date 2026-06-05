@@ -15,9 +15,14 @@ nodes:
         nodeRegistration:
           kubeletExtraArgs:
             feature-gates: KubeletInUserNamespace=true
+        patches:
+          directory: /patches
     extraMounts:
       - hostPath: ./hack/kind/containerd-registries
         containerPath: /etc/containerd/certs.d
+        readOnly: true
+      - hostPath: ./hack/kind/patches
+        containerPath: /patches
         readOnly: true
   # Two worker nodes dedicated to Scylla as that's the minimum required in tests.
   - role: worker

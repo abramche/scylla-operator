@@ -52,9 +52,6 @@ else
     echo "Reusing existing KinD cluster: ${CLUSTER_NAME}"
 fi
 
-# Bump etcd CPU request from the kubeadm default of 100m to avoid compaction stalls under high test parallelism.
-podman exec "${CLUSTER_NAME}-control-plane" sed -i 's/cpu: 100m/cpu: 500m/' /etc/kubernetes/manifests/etcd.yaml
-
 # Set up a local registry for the KinD cluster following https://kind.sigs.k8s.io/docs/user/local-registry/.
 reg_name='kind-registry'
 reg_port='5001'
